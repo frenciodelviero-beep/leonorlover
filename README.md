@@ -8,6 +8,7 @@
 - ✅ کار در گروه‌ها و چت خصوصی
 - ✅ ارسال فایل صوتی با کیفیت بالا
 - ✅ قابل استقرار در Railway
+- ✅ **بدون نیاز به کلاینت آیدی اسپاتیفای**
 
 ## 🚀 راه‌اندازی
 
@@ -18,17 +19,9 @@
 3. اسم و یوزرنیم بات رو انتخاب کنید
 4. توکن بات رو کپی کنید
 
-### 2. تنظیمات اسپاتیفای (اختیاری)
+### 2. استقرار در Railway
 
-**بدون کلاینت آیدی هم کار میکنه!** ولی اگه بخواید از اکانت خودتون استفاده کنید:
-
-1. به [Spotify Developer Dashboard](https://developer.spotify.com/dashboard) برید
-2. یک اپلیکیشن جدید بسازید
-3. Client ID و Client Secret رو کپی کنید
-
-### 3. استقرار در Railway
-
-#### روش اول: با GitHub
+#### روش اول: با GitHub (پیشنهادی)
 
 1. این ریپو رو به GitHub آپلود کنید
 2. به [Railway.app](https://railway.app) برید
@@ -41,7 +34,7 @@
 TELEGRAM_BOT_TOKEN=your_bot_token_here
 ```
 
-(متغیرهای SPOTDL_CLIENT_ID و SPOTDL_CLIENT_SECRET اختیاری هستند)
+7. روی "Deploy" کلیک کنید
 
 #### روش دوم: با Railway CLI
 
@@ -55,18 +48,14 @@ railway login
 # ساخت پروژه جدید
 railway init
 
-# اضافه کردن متغیر اصلی
+# اضافه کردن متغیر
 railway variables set TELEGRAM_BOT_TOKEN=your_token_here
-
-# (اختیاری) اگه کلاینت آیدی اسپاتیفای دارید:
-# railway variables set SPOTDL_CLIENT_ID=your_client_id_here
-# railway variables set SPOTDL_CLIENT_SECRET=your_client_secret_here
 
 # استقرار
 railway up
 ```
 
-### 4. اجرا محلی (برای تست)
+### 3. اجرا محلی (برای تست)
 
 ```bash
 # نصب وابستگی‌ها
@@ -75,11 +64,17 @@ pip install -r requirements.txt
 # کپی فایل env
 cp .env.example .env
 
-# ویرایش فایل .env و اضافه کردن توکن‌ها
+# ویرایش فایل .env و اضافه کردن توکن
 nano .env
 
 # اجرا
 python bot.py
+```
+
+یا از اسکریپت آماده استفاده کنید:
+```bash
+chmod +x run_local.sh
+./run_local.sh
 ```
 
 ## 📝 نحوه استفاده
@@ -93,18 +88,34 @@ python bot.py
 https://open.spotify.com/track/4iV5W9uYEdYUVa79Axb7Rh
 ```
 
-## ⚠️ نکات مهم
+## 🔧 عیب‌یابی
 
-- **بدون کلاینت آیدی هم کار میکنه!** ولی محدودیت‌هایی داره
-- دانلود آلبوم و پلی‌لیست ممکنه زمان‌بر باشه
-- فایل‌های صوتی معمولاً با فرمت MP3 ارسال میشن
-- اگه مشکلی پیش اومد، کلاینت آیدی اسپاتیفای رو اضافه کنید
+### بات جواب نمیده؟
+- چک کنید `TELEGRAM_BOT_TOKEN` درست تنظیم شده باشه
+- چک کنید بات در حال اجرا باشه (لاگ‌ها رو ببینید)
+
+### آهنگ دانلود نمیشه؟
+- spotdl ممکنه بعضی آهنگ‌ها رو پیدا نکنه
+- لینک رو چک کنید معتبر باشه
+- لاگ‌های Railway رو ببینید برای جزئیات خطا
+
+### فایل ارسال نمیشه؟
+- حداکثر حجم فایل تلگرام 50MB هست
+- فرمت‌های پشتیبانی شده: MP3, M4A, OGG, WAV
+
+## 📊 لاگ‌ها
+
+برای دیدن لاگ‌ها در Railway:
+1. به پروژه برید
+2. روی "Deployments" کلیک کنید
+3. آخرین دیپلویمنت رو انتخاب کنید
+4. بخش "Build Logs" و "Deploy Logs" رو ببینید
 
 ## 🛠️ تکنولوژی‌ها
 
 - Python 3.11
-- python-telegram-bot
-- spotdl
+- python-telegram-bot 20.7
+- spotdl 4.2.5
 - yt-dlp
 - FFmpeg
 

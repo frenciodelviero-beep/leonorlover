@@ -12,6 +12,9 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Verify spotdl is installed
+RUN spotdl --version
+
 # Copy bot code
 COPY . .
 
